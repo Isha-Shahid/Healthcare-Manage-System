@@ -1,33 +1,29 @@
-
 package model;
 
-// Based on your class diagram's User entity
-public abstract class user {
-    private String userId;
-    private String firstName;
-    private String lastName;
-    private String dateOfBirth; // Use String for simplicity with CSV, or LocalDate for better design
-    private String phone;
-    private String email;
-    private String postCode;
-    // ... add all other User attributes from your diagram
+public class User {
+    protected String id;
+    protected String firstName;
+    protected String lastName;
+    protected String email;
+    protected String phoneNumber;
 
-    // Constructor (example with core attributes)
-    public user(String userId, String firstName, String lastName, String dateOfBirth, String phone, String email) {
-        this.userId = userId;
+    public User(String id, String firstName, String lastName, String email, String phoneNumber) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.dateOfBirth = dateOfBirth;
-        this.phone = phone;
         this.email = email;
+        this.phoneNumber = phoneNumber;
     }
 
-    // Abstract method placeholder for required User functionality
-    public abstract String getRole(); 
-
-    // Getters and Setters (Implement these for ALL attributes)
-    public String getUserId() {
-        return userId;
-    }
-    // ... other getters and setters
+    // Getters and Setters
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
+    public String getFirstName() { return firstName; }
+    public void setFirstName(String firstName) { this.firstName = firstName; }
+    public String getLastName() { return lastName; }
+    public void setLastName(String lastName) { this.lastName = lastName; }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+    public String getPhoneNumber() { return phoneNumber; }
+    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
 }

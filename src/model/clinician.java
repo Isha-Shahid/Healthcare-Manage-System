@@ -1,49 +1,88 @@
 package model;
 
-public class clinician {
-    private String gp_id;
-    private String first_name;
-    private String last_name;
+public class Clinician {
+    private String clinicianId;
+    private String firstName;
+    private String lastName;
+    private String speciality;
     private String title;
-    private String specialty;
-    private int gmc_number;
-    private int phone_number;
+    private String gmcNumber;
+    private String phoneNumber;
     private String email;
-    private String workplace_id;
-    private String workplace_type;
-    private String employment_status;
-    private String start_date;
+    private String workplaceId;
+    private String workplaceType;
+    private String employmentStatus;
+    private String startDate;
 
-    public clinician(String gp_id, String first_name, String last_name, String title, String specialty,
-                     int gmc_number, int phone_number, String email, String workplace_id,
-                     String workplace_type, String employment_status, String start_date) {
-        this.gp_id = gp_id;
-        this.first_name = first_name;
-        this.last_name = last_name;
+    // Default constructor
+    public Clinician() {}
+
+    // Constructor with ID only
+    public Clinician(String clinicianId) {
+        this.clinicianId = clinicianId;
+    }
+
+    // Constructor with essential info
+    public Clinician(String clinicianId, String firstName, String lastName, String speciality) {
+        this.clinicianId = clinicianId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.speciality = speciality;
+        this.title = "Clinician";
+    }
+
+    // Full constructor
+    public Clinician(String clinicianId, String firstName, String lastName, String title, String speciality,
+                     String gmcNumber, String phoneNumber, String email, String workplaceId, String workplaceType,
+                     String employmentStatus, String startDate) {
+        this.clinicianId = clinicianId;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.title = title;
-        this.specialty = specialty;
-        this.gmc_number = gmc_number;
-        this.phone_number = phone_number;
+        this.speciality = speciality;
+        this.gmcNumber = gmcNumber;
+        this.phoneNumber = phoneNumber;
         this.email = email;
-        this.workplace_id = workplace_id;
-        this.workplace_type = workplace_type;
-        this.employment_status = employment_status;
-        this.start_date = start_date;
+        this.workplaceId = workplaceId;
+        this.workplaceType = workplaceType;
+        this.employmentStatus = employmentStatus;
+        this.startDate = startDate;
     }
 
     // Getters and setters
-    public String getGpId() { return gp_id; }
-    public void setGpId(String gp_id) { this.gp_id = gp_id; }
-    public String getFirstName() { return first_name; }
-    public void setFirstName(String first_name) { this.first_name = first_name; }
-    public String getLastName() { return last_name; }
-    public void setLastName(String last_name) { this.last_name = last_name; }
-    public String getSpecialty() { return specialty; }
-    public void setSpecialty(String specialty) { this.specialty = specialty; }
+    public String getClinicianId() { return clinicianId; }
+    public void setClinicianId(String clinicianId) { this.clinicianId = clinicianId; }
 
-    @Override
-    public String toString() {
-        return first_name + " " + last_name + " (" + specialty + ")";
-    }
+    public String getFirstName() { return firstName; }
+    public void setFirstName(String firstName) { this.firstName = firstName; }
+
+    public String getLastName() { return lastName; }
+    public void setLastName(String lastName) { this.lastName = lastName; }
+
+    public String getSpeciality() { return speciality; }
+    public void setSpeciality(String speciality) { this.speciality = speciality; }
+
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
+
+    public String getGmcNumber() { return gmcNumber; }
+    public void setGmcNumber(String gmcNumber) { this.gmcNumber = gmcNumber; }
+
+    public String getPhoneNumber() { return phoneNumber; }
+    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
+
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+
+    public String getWorkplaceId() { return workplaceId; }
+    public void setWorkplaceId(String workplaceId) { this.workplaceId = workplaceId; }
+
+    public String getWorkplaceType() { return workplaceType; }
+    public void setWorkplaceType(String workplaceType) { this.workplaceType = workplaceType; }
+
+    public String getEmploymentStatus() { return employmentStatus; }
+    public void setEmploymentStatus(String employmentStatus) { this.employmentStatus = employmentStatus; }
+
+    public String getStartDate() { return startDate; }
+    public void setStartDate(String startDate) { this.startDate = startDate; }
 }
-

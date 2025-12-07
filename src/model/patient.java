@@ -1,65 +1,66 @@
-
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
-
-/**
- * Represents a Patient, extending the base User class.
- * This class includes patient-specific demographic data and an association 
- * with their Appointment records.
- */
-// **Correction 1: Class name must be capitalized (Patient)**
-public class patient extends user {
-    
-    // **Correction 2: Attribute names should be camelCase (nhsNumber)**
+public class Patient {
+    private String patientId;
+    private String gpSurgeryId;
+    private String firstName;
+    private String lastName;
+    private String dateOfBirth;
     private String nhsNumber;
+    private String gender;
+    private String phoneNumber;
+    private String email;
     private String address;
-    private String gpSurgeryId; // The ID of the registered GP surgery/facility
+    private String postcode;
+    private String emergencyContactName;
+    private String emergencyContactPhone;
     private String registrationDate;
 
-    // Association: Patient to Appointments (Composition/Aggregation)
-    private List<appointment> appointments;
-
-    // Constructor
-    public patient(String userId, String firstName, String lastName, String dateOfBirth, String phone, String email,
-                   String nhsNumber, String address, String gpSurgeryId, String registrationDate) {
-        
-        // Correctly call the constructor of the User superclass
-        super(userId, firstName, lastName, dateOfBirth, phone, email);
-        
-        // Initialize Patient-specific attributes
-        this.nhsNumber = nhsNumber;
-        this.address = address;
+    public Patient(String patientId, String gpSurgeryId) {
+        this.patientId = patientId;
         this.gpSurgeryId = gpSurgeryId;
-        this.registrationDate = registrationDate;
-        
-        // Initialize the association list
-        this.appointments = new ArrayList<>();
-    }
-    
-    // **Correction 3: Must implement the abstract method from User (getRole)**
-    @Override
-    public String getRole() {
-        return "Patient";
     }
 
-    // --- Getters and Setters (Partial list - implement all of them) ---
+    // Getters and setters for all fields
+    public String getPatientId() { return patientId; }
+    public void setPatientId(String patientId) { this.patientId = patientId; }
 
-    public String getNhsNumber() {
-        return nhsNumber;
-    }
+    public String getGpSurgeryId() { return gpSurgeryId; }
+    public void setGpSurgeryId(String gpSurgeryId) { this.gpSurgeryId = gpSurgeryId; }
 
-    public void setNhsNumber(String nhsNumber) {
-        this.nhsNumber = nhsNumber;
-    }
-    
-    // Method to fulfill the diagram's relationship: Patient to Appointments
-    public List<appointment> getAppointments() {
-        return appointments;
-    }
+    public String getFirstName() { return firstName; }
+    public void setFirstName(String firstName) { this.firstName = firstName; }
 
-    public void addAppointment(appointment appointment) {
-        this.appointments.add(appointment);
-    }
+    public String getLastName() { return lastName; }
+    public void setLastName(String lastName) { this.lastName = lastName; }
+
+    public String getDateOfBirth() { return dateOfBirth; }
+    public void setDateOfBirth(String dateOfBirth) { this.dateOfBirth = dateOfBirth; }
+
+    public String getNhsNumber() { return nhsNumber; }
+    public void setNhsNumber(String nhsNumber) { this.nhsNumber = nhsNumber; }
+
+    public String getGender() { return gender; }
+    public void setGender(String gender) { this.gender = gender; }
+
+    public String getPhoneNumber() { return phoneNumber; }
+    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
+
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+
+    public String getAddress() { return address; }
+    public void setAddress(String address) { this.address = address; }
+
+    public String getPostcode() { return postcode; }
+    public void setPostcode(String postcode) { this.postcode = postcode; }
+
+    public String getEmergencyContactName() { return emergencyContactName; }
+    public void setEmergencyContactName(String emergencyContactName) { this.emergencyContactName = emergencyContactName; }
+
+    public String getEmergencyContactPhone() { return emergencyContactPhone; }
+    public void setEmergencyContactPhone(String emergencyContactPhone) { this.emergencyContactPhone = emergencyContactPhone; }
+
+    public String getRegistrationDate() { return registrationDate; }
+    public void setRegistrationDate(String registrationDate) { this.registrationDate = registrationDate; }
 }

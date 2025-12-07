@@ -1,0 +1,15 @@
+Referral ID: R001
+Patient ID: P001
+Urgency: High
+----------------------------
+
+Referral ID: R001
+Patient ID: P001
+Urgency: High
+----------------------------
+
+Referral ID: R001
+Patient ID: P001
+Urgency: High
+----------------------------
+

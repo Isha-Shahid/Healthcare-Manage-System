@@ -1,0 +1,6 @@
+RX001,P001,C001,A001,Simvastatin,20mg,Once daily,28,28 tablets,Take with evening meal,Boots Pharmacy Birmingham,Issued,2025-12-10
+RX002,P002,C002,A002,Paracetamol,500mg,As required,7,16 tablets,Max 8 tablets in 24 hours,Superdrug Birmingham Central,Issued,2025-12-11
+RX001,P001,C001,A001,Simvastatin,20mg,Once daily,28,28 tablets,Take with evening meal,Boots Pharmacy Birmingham,Issued,2025-12-10
+RX002,P002,C002,A002,Paracetamol,500mg,As required,7,16 tablets,Max 8 tablets in 24 hours,Superdrug Birmingham Central,Issued,2025-12-11
+RX001,P001,C001,A001,Simvastatin,20mg,Once daily,28,28 tablets,Take with evening meal,Boots Pharmacy Birmingham,Issued,2025-12-10
+RX002,P002,C002,A002,Paracetamol,500mg,As required,7,16 tablets,Max 8 tablets in 24 hours,Superdrug Birmingham Central,Issued,2025-12-11
