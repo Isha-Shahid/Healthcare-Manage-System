@@ -1,17 +1,22 @@
 package controller;
 
 import model.Referral;
-import java.util.ArrayList;
+import model.ReferralManager;
+import model.DataStore;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ReferralController {
-    private List<Referral> referrals = new ArrayList<>();
 
-    public void createReferral(Referral r) { referrals.add(r); }
+    public void createReferral(Referral r) {
+        ReferralManager.getInstance().addReferral(r);
+        DataStore.saveReferrals(ReferralManager.getInstance().getReferrals(), "referrals.csv");
+    }
+
     public List<Referral> getReferralsForPatient(String patientId) {
-        List<Referral> result = new ArrayList<>();
-        for (Referral r : referrals)
-            if (r.getPatientId().equals(patientId)) result.add(r);
-        return result;
+        return ReferralManager.getInstance().getReferrals()
+                .stream()
+                .filter(r -> r.getPatientId().equals(patientId))
+                .collect(Collectors.toList());
     }
 }

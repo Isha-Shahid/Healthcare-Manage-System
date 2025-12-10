@@ -1,6 +1,8 @@
 package view;
 
+import controller.ReferralController;
 import model.Referral;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -14,15 +16,15 @@ public class ReferralView extends JPanel {
     public ReferralView() {
         setLayout(new BorderLayout());
 
-        model = new DefaultTableModel(new String[]{"Referral ID", "Patient ID", "Priority"}, 0);
+        model = new DefaultTableModel(new String[]{"Referral ID", "Patient ID", "Clinician ID"}, 0);
         table = new JTable(model);
         add(new JScrollPane(table), BorderLayout.CENTER);
     }
 
-    public void showReferrals(List<Referral> referrals) {
+    public void loadReferrals(List<Referral> referrals) {
         model.setRowCount(0);
         for (Referral r : referrals) {
-            model.addRow(new Object[]{r.getReferralId(), r.getPatientId()});
+            model.addRow(new Object[]{r.getReferralId(), r.getPatientId(), r.getClinicianId()});
         }
     }
 }

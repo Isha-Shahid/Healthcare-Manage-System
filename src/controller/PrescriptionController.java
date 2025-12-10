@@ -1,29 +1,33 @@
 package controller;
 
-import model.*;
-
-import java.util.ArrayList;
+import model.Prescription;
+import model.PrescriptionManager;
+import model.DataStore;
 import java.util.List;
 
 public class PrescriptionController {
 
-    private List<Prescription> prescriptions;
-
     public PrescriptionController() {
-        this.prescriptions = DataStore.loadPrescriptions("prescriptions.csv");
+        // Load prescriptions from CSV if manager is empty
+        if (PrescriptionManager.getInstance().getPrescriptions().isEmpty()) {
+            List<Prescription> prescriptions = DataStore.loadPrescriptions("prescriptions.csv");
+            for (Prescription p : prescriptions) {
+                PrescriptionManager.getInstance().addPrescription(p);
+            }
+        }
     }
 
     public void addPrescription(Prescription p) {
-        prescriptions.add(p);
-        DataStore.savePrescriptions(prescriptions, "prescriptions.csv");
+        PrescriptionManager.getInstance().addPrescription(p);
+        DataStore.savePrescriptions(PrescriptionManager.getInstance().getPrescriptions(), "prescriptions.csv");
     }
 
     public List<Prescription> getAllPrescriptions() {
-        return prescriptions;
+        return PrescriptionManager.getInstance().getPrescriptions();
     }
 
-    public void removePrescription(Prescription p) {
-        prescriptions.remove(p);
-        DataStore.savePrescriptions(prescriptions, "prescriptions.csv");
+    public void deletePrescription(Prescription p) {
+        PrescriptionManager.getInstance().getPrescriptions().remove(p);
+        DataStore.savePrescriptions(PrescriptionManager.getInstance().getPrescriptions(), "prescriptions.csv");
     }
 }

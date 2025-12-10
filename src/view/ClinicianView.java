@@ -54,7 +54,7 @@ public class ClinicianView extends JPanel {
 
         if (id != null && first != null && last != null && spec != null) {
             Clinician c = new Clinician(id, first, last, spec);
-            controller.addClinician(c);
+            controller.addClinician(c); // persist
             loadData();
         }
     }
@@ -73,6 +73,7 @@ public class ClinicianView extends JPanel {
                 if (newFirst != null) c.setFirstName(newFirst);
                 if (newLast != null) c.setLastName(newLast);
                 if (newSpec != null) c.setSpeciality(newSpec);
+                controller.addClinician(c); // persist changes
                 break;
             }
         }
@@ -84,7 +85,11 @@ public class ClinicianView extends JPanel {
         if (row == -1) return;
 
         String clinicianId = (String) model.getValueAt(row, 0);
-        controller.getAllClinicians().removeIf(c -> c.getClinicianId().equals(clinicianId));
+        Clinician toRemove = controller.getAllClinicians().stream()
+                .filter(c -> c.getClinicianId().equals(clinicianId))
+                .findFirst()
+                .orElse(null);
+        if (toRemove != null) controller.deleteClinician(toRemove);
         loadData();
     }
 }

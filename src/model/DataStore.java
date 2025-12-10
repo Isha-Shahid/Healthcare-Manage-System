@@ -5,13 +5,14 @@ import java.util.*;
 
 public class DataStore {
 
-    // ----------------- PATIENTS -----------------
+    // -------------------- Patients --------------------
     public static List<Patient> loadPatients(String filePath) {
         List<Patient> patients = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-            String line = br.readLine(); // skip header
+            String line;
+            br.readLine(); // skip header
             while ((line = br.readLine()) != null) {
-                String[] data = line.split(",");
+                String[] data = line.split(",", -1); // include empty strings
                 if (data.length < 14) continue;
                 Patient p = new Patient(data[0].trim(), data[13].trim());
                 p.setFirstName(data[1].trim());
@@ -39,10 +40,20 @@ public class DataStore {
             writer.write("PatientID,FirstName,LastName,DOB,NHSNumber,Gender,Phone,Email,Address,Postcode,EmergencyName,EmergencyPhone,RegistrationDate,GPID\n");
             for (Patient p : patients) {
                 writer.write(String.join(",",
-                        p.getPatientId(), p.getFirstName(), p.getLastName(), p.getDateOfBirth(),
-                        p.getNhsNumber(), p.getGender(), p.getPhoneNumber(), p.getEmail(),
-                        p.getAddress(), p.getPostcode(), p.getEmergencyContactName(),
-                        p.getEmergencyContactPhone(), p.getRegistrationDate(), p.getGpSurgeryId()
+                        safe(p.getPatientId()),
+                        safe(p.getFirstName()),
+                        safe(p.getLastName()),
+                        safe(p.getDateOfBirth()),
+                        safe(p.getNhsNumber()),
+                        safe(p.getGender()),
+                        safe(p.getPhoneNumber()),
+                        safe(p.getEmail()),
+                        safe(p.getAddress()),
+                        safe(p.getPostcode()),
+                        safe(p.getEmergencyContactName()),
+                        safe(p.getEmergencyContactPhone()),
+                        safe(p.getRegistrationDate()),
+                        safe(p.getGpSurgeryId())
                 ) + "\n");
             }
         } catch (IOException e) {
@@ -50,60 +61,20 @@ public class DataStore {
         }
     }
 
-    // ----------------- CLINICIANS -----------------
-    public static List<Clinician> loadClinicians(String filePath) {
-        List<Clinician> clinicians = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-            String line = br.readLine(); // skip header
-            while ((line = br.readLine()) != null) {
-                String[] data = line.split(",");
-                if (data.length < 12) continue;
-                Clinician c = new Clinician(
-                        data[0], data[1], data[2], data[4]
-                );
-                c.setTitle(data[3]);
-                c.setGmcNumber(data[5]);
-                c.setPhoneNumber(data[6]);
-                c.setEmail(data[7]);
-                c.setWorkplaceId(data[8]);
-                c.setWorkplaceType(data[9]);
-                c.setEmploymentStatus(data[10]);
-                c.setStartDate(data[11]);
-                clinicians.add(c);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return clinicians;
-    }
-
-    public static void saveClinicians(List<Clinician> clinicians, String filePath) {
-        try (FileWriter writer = new FileWriter(filePath)) {
-            writer.write("ClinicianID,FirstName,LastName,Title,Speciality,GMCNumber,Phone,Email,WorkplaceID,WorkplaceType,EmploymentStatus,StartDate\n");
-            for (Clinician c : clinicians) {
-                writer.write(String.join(",",
-                        c.getClinicianId(), c.getFirstName(), c.getLastName(), c.getTitle(),
-                        c.getSpeciality(), c.getGmcNumber(), c.getPhoneNumber(), c.getEmail(),
-                        c.getWorkplaceId(), c.getWorkplaceType(), c.getEmploymentStatus(), c.getStartDate()
-                ) + "\n");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    // ----------------- PRESCRIPTIONS -----------------
+    // -------------------- Prescriptions --------------------
     public static List<Prescription> loadPrescriptions(String filePath) {
         List<Prescription> prescriptions = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-            String line = br.readLine(); // skip header
+            String line;
+            br.readLine(); // skip header
             while ((line = br.readLine()) != null) {
-                String[] data = line.split(",");
+                String[] data = line.split(",", -1);
                 if (data.length < 13) continue;
                 Prescription p = new Prescription(
-                        data[0], data[1], data[2], data[3],
-                        data[4], data[5], data[6], Integer.parseInt(data[7]),
-                        data[8], data[9], data[10], data[11], data[12]
+                        data[0].trim(), data[1].trim(), data[2].trim(), data[3].trim(),
+                        data[4].trim(), data[5].trim(), data[6].trim(),
+                        parseIntSafe(data[7]), data[8].trim(), data[9].trim(), data[10].trim(),
+                        data[11].trim(), data[12].trim()
                 );
                 prescriptions.add(p);
             }
@@ -118,9 +89,19 @@ public class DataStore {
             writer.write("PrescriptionID,PatientID,ClinicianID,AppointmentID,Medication,Dosage,Frequency,Duration,Quantity,Instructions,Pharmacy,Status,IssueDate\n");
             for (Prescription p : prescriptions) {
                 writer.write(String.join(",",
-                        p.getPrescriptionId(), p.getPatientId(), p.getClinicianId(), p.getAppointmentId(),
-                        p.getMedication(), p.getDosage(), p.getFrequency(), String.valueOf(p.getDuration()),
-                        p.getQuantity(), p.getInstructions(), p.getPharmacy(), p.getStatus(), p.getIssueDate()
+                        safe(p.getPrescriptionId()),
+                        safe(p.getPatientId()),
+                        safe(p.getClinicianId()),
+                        safe(p.getAppointmentId()),
+                        safe(p.getMedication()),
+                        safe(p.getDosage()),
+                        safe(p.getFrequency()),
+                        String.valueOf(p.getDuration()),
+                        safe(p.getQuantity()),
+                        safe(p.getInstructions()),
+                        safe(p.getPharmacy()),
+                        safe(p.getStatus()),
+                        safe(p.getIssueDate())
                 ) + "\n");
             }
         } catch (IOException e) {
@@ -128,15 +109,54 @@ public class DataStore {
         }
     }
 
-    // ----------------- APPOINTMENTS -----------------
+    // -------------------- Clinicians --------------------
+    public static List<Clinician> loadClinicians(String filePath) {
+        List<Clinician> clinicians = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            br.readLine(); // skip header
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(",", -1);
+                if (data.length < 4) continue;
+                Clinician c = new Clinician(
+                        data[0].trim(), data[1].trim(), data[2].trim(), data[3].trim()
+                );
+                clinicians.add(c);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return clinicians;
+    }
+
+    public static void saveClinicians(List<Clinician> clinicians, String filePath) {
+        try (FileWriter writer = new FileWriter(filePath)) {
+            writer.write("ClinicianID,FirstName,LastName,Speciality\n");
+            for (Clinician c : clinicians) {
+                writer.write(String.join(",",
+                        safe(c.getClinicianId()),
+                        safe(c.getFirstName()),
+                        safe(c.getLastName()),
+                        safe(c.getSpeciality())
+                ) + "\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // -------------------- Appointments --------------------
     public static List<Appointment> loadAppointments(String filePath) {
         List<Appointment> appointments = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-            String line = br.readLine(); // skip header
+            String line;
+            br.readLine(); // skip header
             while ((line = br.readLine()) != null) {
-                String[] data = line.split(",");
+                String[] data = line.split(",", -1);
                 if (data.length < 4) continue;
-                Appointment a = new Appointment(data[0], data[1], data[2], data[3]);
+                Appointment a = new Appointment(
+                        data[0].trim(), data[1].trim(), data[2].trim(), data[3].trim()
+                );
                 appointments.add(a);
             }
         } catch (Exception e) {
@@ -149,22 +169,30 @@ public class DataStore {
         try (FileWriter writer = new FileWriter(filePath)) {
             writer.write("AppointmentID,PatientID,ClinicianID,Date\n");
             for (Appointment a : appointments) {
-                writer.write(String.join(",", a.getAppointmentId(), a.getPatientId(), a.getClinicianId(), a.getDate()) + "\n");
+                writer.write(String.join(",",
+                        safe(a.getAppointmentId()),
+                        safe(a.getPatientId()),
+                        safe(a.getClinicianId()),
+                        safe(a.getDate())
+                ) + "\n");
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    // ----------------- REFERRALS -----------------
+    // -------------------- Referrals --------------------
     public static List<Referral> loadReferrals(String filePath) {
         List<Referral> referrals = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-            String line = br.readLine(); // skip header
+            String line;
+            br.readLine(); // skip header
             while ((line = br.readLine()) != null) {
-                String[] data = line.split(",");
-                if (data.length < 3) continue;
-                Referral r = new Referral(data[0], data[1], data[2]);
+                String[] data = line.split(",", -1);
+                if (data.length < 4) continue;
+                Referral r = new Referral(
+                        data[0].trim(), data[1].trim(), data[2].trim(), data[3].trim()
+                );
                 referrals.add(r);
             }
         } catch (Exception e) {
@@ -175,12 +203,30 @@ public class DataStore {
 
     public static void saveReferrals(List<Referral> referrals, String filePath) {
         try (FileWriter writer = new FileWriter(filePath)) {
-            writer.write("ReferralID,PatientID,ClinicianID\n");
+            writer.write("ReferralID,PatientID,ClinicianID,Priority\n");
             for (Referral r : referrals) {
-                writer.write(String.join(",", r.getReferralId(), r.getPatientId(), r.getClinicianId()) + "\n");
+                writer.write(String.join(",",
+                        safe(r.getReferralId()),
+                        safe(r.getPatientId()),
+                        safe(r.getClinicianId()),
+                        safe(r.getPriority())
+                ) + "\n");
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    // -------------------- Utility Methods --------------------
+    private static String safe(String s) {
+        return s == null ? "" : s.replace(",", ""); // remove commas in data to avoid CSV issues
+    }
+
+    private static int parseIntSafe(String s) {
+        try {
+            return Integer.parseInt(s.trim());
+        } catch (Exception e) {
+            return 0;
         }
     }
 }

@@ -16,7 +16,7 @@ public class PrescriptionView extends JPanel {
         this.controller = controller;
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        model = new DefaultTableModel(new String[]{"ID","Patient","Medication"}, 0);
+        model = new DefaultTableModel(new String[]{"Prescription ID","Patient ID","Medication"}, 0);
         table = new JTable(model);
         add(new JScrollPane(table));
 

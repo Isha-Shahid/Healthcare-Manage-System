@@ -56,7 +56,7 @@ public class PatientView extends JPanel {
             Patient p = new Patient(id, gp);
             p.setFirstName(first);
             p.setLastName(last);
-            controller.addPatient(p);
+            controller.addPatient(p); // persist
             loadData();
         }
     }
@@ -73,6 +73,7 @@ public class PatientView extends JPanel {
             if (p.getPatientId().equals(patientId)) {
                 if (newFirst != null) p.setFirstName(newFirst);
                 if (newLast != null) p.setLastName(newLast);
+                controller.addPatient(p); // save changes
                 break;
             }
         }
@@ -84,7 +85,13 @@ public class PatientView extends JPanel {
         if (row == -1) return;
 
         String patientId = (String) model.getValueAt(row, 0);
-        controller.getAllPatients().removeIf(p -> p.getPatientId().equals(patientId));
+        Patient toRemove = controller.getAllPatients().stream()
+                .filter(p -> p.getPatientId().equals(patientId))
+                .findFirst()
+                .orElse(null);
+        if (toRemove != null) {
+            controller.deletePatient(toRemove);
+        }
         loadData();
     }
 }

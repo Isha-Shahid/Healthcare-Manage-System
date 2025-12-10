@@ -1,12 +1,27 @@
 package controller;
 
 import model.Clinician;
-import java.util.ArrayList;
+import model.DataStore;
 import java.util.List;
 
 public class ClinicianController {
-    private List<Clinician> clinicians = new ArrayList<>();
+    private List<Clinician> clinicians;
 
-    public void addClinician(Clinician c) { clinicians.add(c); }
-    public List<Clinician> getAllClinicians() { return clinicians; }
+    public ClinicianController() {
+        clinicians = DataStore.loadClinicians("clinicians.csv");
+    }
+
+    public void addClinician(Clinician c) {
+        clinicians.add(c);
+        DataStore.saveClinicians(clinicians, "clinicians.csv");
+    }
+
+    public List<Clinician> getAllClinicians() {
+        return clinicians;
+    }
+
+    public void deleteClinician(Clinician c) {
+        clinicians.remove(c);
+        DataStore.saveClinicians(clinicians, "clinicians.csv");
+    }
 }

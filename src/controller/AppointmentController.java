@@ -1,17 +1,22 @@
 package controller;
 
 import model.Appointment;
-import java.util.ArrayList;
+import model.AppointmentManager;
+import model.DataStore;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AppointmentController {
-    private List<Appointment> appointments = new ArrayList<>();
 
-    public void scheduleAppointment(Appointment a) { appointments.add(a); }
+    public void scheduleAppointment(Appointment a) {
+        AppointmentManager.getInstance().addAppointment(a);
+        DataStore.saveAppointments(AppointmentManager.getInstance().getAppointments(), "appointments.csv");
+    }
+
     public List<Appointment> getAppointmentsForPatient(String patientId) {
-        List<Appointment> result = new ArrayList<>();
-        for (Appointment a : appointments)
-            if (a.getPatientId().equals(patientId)) result.add(a);
-        return result;
+        return AppointmentManager.getInstance().getAppointments()
+                .stream()
+                .filter(a -> a.getPatientId().equals(patientId))
+                .collect(Collectors.toList());
     }
 }
