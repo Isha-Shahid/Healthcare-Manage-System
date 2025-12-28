@@ -1,0 +1,31 @@
+PrescriptionID,PatientID,ClinicianID,Medication,Dosage,Date
+RX001,P001,C001,9/20/2025,Simvastatin,Issued
+RX002,P002,C009,9/20/2025,Paracetamol,Issued
+RX003,P003,C003,9/21/2025,Ramipril,Issued
+RX004,P004,C002,9/22/2025,GTN Spray,Issued
+RX005,P006,C004,9/23/2025,Metformin,Issued
+RX006,P008,C010,9/26/2025,Folic Acid,Issued
+RX007,P010,C002,9/28/2025,Insulin Glargine,Issued
+RX008,P001,C001,9/15/2025,Ibuprofen,Collected
+RX009,P003,C003,8/20/2025,Amlodipine,Collected
+RX010,P005,C005,9/25/2025,Atorvastatin,Issued
+RX001,P001,C001,9/20/2025,Simvastatin,Issued
+RX002,P002,C009,9/20/2025,Paracetamol,Issued
+RX003,P003,C003,9/21/2025,Ramipril,Issued
+RX004,P004,C002,9/22/2025,GTN Spray,Issued
+RX005,P006,C004,9/23/2025,Metformin,Issued
+RX006,P008,C010,9/26/2025,Folic Acid,Issued
+RX007,P010,C002,9/28/2025,Insulin Glargine,Issued
+RX008,P001,C001,9/15/2025,Ibuprofen,Collected
+RX009,P003,C003,8/20/2025,Amlodipine,Collected
+RX010,P005,C005,9/25/2025,Atorvastatin,Issued
+RX001,P001,C001,9/20/2025,Simvastatin,Issued
+RX002,P002,C009,9/20/2025,Paracetamol,Issued
+RX003,P003,C003,9/21/2025,Ramipril,Issued
+RX004,P004,C002,9/22/2025,GTN Spray,Issued
+RX005,P006,C004,9/23/2025,Metformin,Issued
+RX006,P008,C010,9/26/2025,Folic Acid,Issued
+RX007,P010,C002,9/28/2025,Insulin Glargine,Issued
+RX008,P001,C001,9/15/2025,Ibuprofen,Collected
+RX009,P003,C003,8/20/2025,Amlodipine,Collected
+RX010,P005,C005,9/25/2025,Atorvastatin,Issued
